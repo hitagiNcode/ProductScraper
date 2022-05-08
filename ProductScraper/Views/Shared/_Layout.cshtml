@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/ProductScraper.styles.css" asp-append-version="true" />
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
@@ -58,6 +58,7 @@
       </li>
 
       <!-- Notifications Dropdown Menu -->
+      <!--
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
@@ -84,6 +85,7 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
+      -->
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -102,7 +104,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="../../dist/img/newlogov2.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .9">
       <span class="brand-text font-weight-light">PuniPuniTDS</span>
     </a>
 
@@ -137,9 +139,9 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-home"></i>
               <p>
-                Dashboard
+                ANASAYFA
                <!-- <i class="right fas fa-angle-left"></i>-->
               </p>
             </a>
@@ -166,33 +168,81 @@
             </ul>
             -->
           </li>
+           <!-- YENİ BİR ŞEY GÖSTEREN İCON <span class="right badge badge-danger">Soon</span>--->
+           <!--
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Widgets
-                <!--<span class="right badge badge-danger">New</span>--->
+               
               </p>
             </a>
-          </li>
+          </li>-->
          
-          <li class="nav-header">EXAMPLES</li>
+          <li class="nav-header">PAZARYERLERİ</li>
           <li class="nav-item">
-            <a href="../calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+            <a href="#" class="nav-link">
+              <img src="../../dist/img/amazon-icon.png" alt="Amazon Logo" class="nav-icon img-circle" style="opacity: .9">
               <p>
-                Calendar
+                AMAZON TR
                 <span class="badge badge-info right">2</span>
               </p>
             </a>
           </li>
 
-          <li class="nav-header">MISCELLANEOUS</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <img src="../../dist/img/trendyol-logo.png" alt="Trendyol Logo" class="nav-icon" style="opacity: .9">
+              <p>
+                TRENDYOL
+                <span class="right badge badge-warning">Yakında</span>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <img src="../../dist/img/hepsiburada-logo.png" alt="Hepsiburada Logo" class="nav-icon img-circle" style="opacity: .9">
+              <p>
+                HEPSİBURADA
+                <span class="right badge badge-warning">Yakında</span>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <img src="../../dist/img/n11-logo.png" alt="N11 Logo" class="nav-icon img-circle" style="opacity: .9">
+              <p>
+                N11
+                <span class="right badge badge-warning">Yakında</span>
+                <!--<span class="badge badge-info right">2</span>-->
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-header">NASIL KULLANILIR?</li>
          
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
-              <p>Documentation</p>
+              <p>DÖKÜMANTASYON</p>
+            </a>
+          </li>
+
+          <li class="nav-header">ÜYELİK</li>
+         
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>PROFİL</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>ÇIKIŞ</p>
             </a>
           </li>
           
@@ -277,7 +327,7 @@
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+
 <script src="~/js/site.js" asp-append-version="true"></script>
  @await RenderSectionAsync("Scripts", required: false)
 </body>
