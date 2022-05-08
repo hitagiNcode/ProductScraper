@@ -4,6 +4,13 @@ namespace ProductScraper.Models
 {
     public class Product
     {
+        [Key]
+        public int Id { get; set; } 
+
+        [Required]
+        [StringLength(10)]
+        public string ASIN { get; set; } = null!;
+
         [Required]
         [StringLength(250)]
         public string Name { get; set; } = null!;
@@ -12,8 +19,6 @@ namespace ProductScraper.Models
 
         public string? PictureUri { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string ASIN { get; set; } = null!;
+        public DateTime LastSyncTime { get; set; } = DateTime.Now;
     }
 }

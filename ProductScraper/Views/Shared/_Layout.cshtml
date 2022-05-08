@@ -91,11 +91,13 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+      <!--
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+      -->
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -138,7 +140,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 ANASAYFA
@@ -182,7 +184,7 @@
          
           <li class="nav-header">PAZARYERLERİ</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link" asp-area="" asp-controller="AmzTrProductTrack" asp-action="Index" >
               <img src="../../dist/img/amazon-icon.png" alt="Amazon Logo" class="nav-icon img-circle" style="opacity: .9">
               <p>
                 AMAZON TR
@@ -227,7 +229,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
-              <p>DÖKÜMANTASYON</p>
+              <p>DOKÜMANTASYON</p>
             </a>
           </li>
 

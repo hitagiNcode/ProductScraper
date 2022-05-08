@@ -13,7 +13,7 @@ namespace ProductScraper.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Product"] = getProductFromUrl(testurl);
+            //ViewData["Product"] = getProductFromUrl(testurl);
             return View();
         }
 
