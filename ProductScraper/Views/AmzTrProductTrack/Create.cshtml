@@ -1,4 +1,7 @@
 ﻿@model ProductLink
+@{
+    ViewData["Title"] = "Amazon Türkiye Ürün Ekle";
+}
 
 <form method="post">
     <div class="border p-3 mt-1">
@@ -17,3 +20,47 @@
 <!--
     Ürünü bu sayfada eklettirip sorunları göster
 -->
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle;">
+                Ürün Resmi
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                Ürün Adı
+            </th>
+            <th style="text-align: center; vertical-align: middle;"> 
+                Ürün Fiyatı
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                Ürün Asin
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                Ürün Url
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @if (ViewData.Model != null)
+                {
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <img src="@ViewData.Model.PictureUri" alt="Ürün Resmi" style="max-width:50px;width:100%">
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @ViewData.Model.Name
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @ViewData.Model.Price TL
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @ViewData.Model.ASIN
+                </td>
+                <td style="text-align: center; vertical-align: middle;"> 
+                   <a href="@ViewData.Model.URL" target="_blank"> Ürüne Git</a>
+                </td>
+            </tr>
+                }
+    </tbody>
+</table>
