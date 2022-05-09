@@ -8,6 +8,7 @@ namespace ProductScraper.Controllers
     public class AmzTrProductTrackController : Controller
     {
         private readonly AppDbContext _db;
+        
         public AmzTrProductTrackController(AppDbContext db)
         {
             _db = db;
@@ -57,9 +58,18 @@ namespace ProductScraper.Controllers
                 ModelState.AddModelError("URL", "Ürün bilgilerini çekemedik" +ex);
                 return View();
             }
-            
+
             return View(newProduct);
 
+        }
+
+        //POST
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult AddProducts()
+        {
+
+            return RedirectToAction("Index");
         }
 
         private bool CheckProductLink(string _link)
