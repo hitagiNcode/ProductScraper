@@ -1,10 +1,20 @@
 ﻿@model IEnumerable<Product>
-
 @{
     ViewData["Title"] = "Index";
 }
+<div class="container p-1">
+    <div class="row pt-1">
+        <div class="col-6">
+            <h4 class="text-info">Amazon Türkiye Ürün Listesi</h4>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="AmzTrProductTrack" asp-action="Create" class="btn btn-success">
+            Ürün Ekle
+            </a>
+        </div>
+    </div>
 
-<h1> Amazon Türkiye Ürün Takibi</h1>
+</div>
 
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>

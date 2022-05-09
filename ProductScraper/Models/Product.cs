@@ -21,4 +21,9 @@ namespace ProductScraper.Models
 
         public DateTime LastSyncTime { get; set; } = DateTime.Now;
     }
+
+    public class ProductLink
+    {
+        public string URL { get; set; } = null!;
+    }
 }

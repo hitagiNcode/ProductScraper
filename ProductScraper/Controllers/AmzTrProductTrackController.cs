@@ -16,5 +16,10 @@ namespace ProductScraper.Controllers
             IEnumerable<Product> objProductList = _db.Products;
             return View(objProductList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

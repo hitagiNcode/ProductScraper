@@ -1,0 +1,15 @@
+﻿@model ProductLink
+
+<form method="post">
+    <div class="border p-3 mt-1">
+        <div class"row pb-2">
+            <h4 class="text-primary"> Lütfen ürün linkini giriniz:</h4>
+        </div>
+        <div class="mb-3">
+            <label asp-for="URL">URL</label>
+            <input asp-for="URL" class="form-control" placeholder="Sadece amazon.com.tr/ ürün linki">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100px">Ürün Ekle</button>
+        <a asp-controller="AmzTrProductTrack" asp-action="Index" class="btn btn-secondary" style="width:100px">Vazgeç</a>
+    </div>
+</form>
