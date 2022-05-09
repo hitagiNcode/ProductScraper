@@ -5,7 +5,7 @@ namespace ProductScraper.Models
     public class Product
     {
         [Key]
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         [Required]
         [StringLength(10)]
@@ -15,7 +15,7 @@ namespace ProductScraper.Models
         [StringLength(250)]
         public string Name { get; set; } = null!;
 
-        public string? Price { get; set; } 
+        public string? Price { get; set; }
 
         public string? PictureUri { get; set; }
 
@@ -27,7 +27,7 @@ namespace ProductScraper.Models
         public string? PictureUri { get; set; }
 
         [StringLength(250)]
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         public int Price { get; set; }
 

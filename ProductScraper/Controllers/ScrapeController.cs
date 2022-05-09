@@ -9,7 +9,7 @@ namespace ProductScraper.Controllers
     public class ScrapeController : Controller
     {
 
-        static readonly string testurl = "https://www.amazon.com.tr/dp/B083Y1D8WB/";
+        //static readonly string testurl = "https://www.amazon.com.tr/dp/B083Y1D8WB/";
 
         public IActionResult Index()
         {
