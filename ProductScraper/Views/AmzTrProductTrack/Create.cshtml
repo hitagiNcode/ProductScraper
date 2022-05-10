@@ -68,7 +68,12 @@
 
 @if(ViewData.Model != null)
 {
-    <form method="post" asp-action="AddProducts" asp-controller="AmzTrProductTrack">
+   <form method="post" asp-action="AddProducts">
+    <input type="hidden" asp-for="PictureUri" value="@ViewData.Model.PictureUri">
+    <input type="hidden" asp-for="Name" value="@ViewData.Model.Name">
+    <input type="hidden" asp-for="Price" value="@ViewData.Model.Price">
+    <input type="hidden" asp-for="ASIN" value="@ViewData.Model.ASIN">
+    <input type="hidden" asp-for="URL" value="@ViewData.Model.URL">
     <button type="submit" class="btn btn-success" style="width:130px">Ürünleri Ekle</button>
-    </form>
+   </form>
 }

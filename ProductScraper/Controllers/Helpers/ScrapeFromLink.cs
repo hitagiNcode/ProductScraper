@@ -1,80 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ProductScraper.Controllers.Helpers;
+﻿using HtmlAgilityPack;
 using ProductScraper.Models;
+using System.Text.RegularExpressions;
 
-namespace ProductScraper.Controllers
+namespace ProductScraper.Controllers.Helpers
 {
-    public class AmzTrProductTrackController : Controller
+    public class ScrapeFromLink
     {
-        private readonly AppDbContext _db;
-        
-        public AmzTrProductTrackController(AppDbContext db)
-        {
-            _db = db;
-        }
-
-        //GET
-        public IActionResult Index()
-        {
-            IEnumerable<Product> objProductList = _db.Products;
-            return View(objProductList);
-        }
-
-        //GET
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        //POST
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public IActionResult Create(ProductLink _link)
-        {
-
-            if (!ScrapeFromLink.CheckProductLink(_link.URL))
-            {
-                ModelState.AddModelError("URL", "Geçersiz link! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
-                return View();
-            }
-
-            ProductLink newProduct;
-            try
-            {
-                newProduct = ScrapeFromLink.getProductFromUrl(_link.URL);
-                if(string.IsNullOrEmpty(newProduct.Name))
-                {
-                    ModelState.AddModelError("URL", "Ürünün İsim bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
-                    return View();
-                }
-                if ( string.IsNullOrEmpty(newProduct.ASIN))
-                {
-                    ModelState.AddModelError("URL", "Ürün Asin bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
-                    return View();
-                }
-            }
-            catch (Exception ex) {
-                ModelState.AddModelError("URL", "Ürün bilgilerini çekemedik" +ex);
-                return View();
-            }
-
-            return View(newProduct);
-
-        }
-
-        //POST
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public IActionResult AddProducts(ProductLink _product)
-        {
-            // Ürünleri ekle tuşu sorunsuz çalışıyor! inputlar hidden ama ikinci bir kontrol gerek burada
-            var test1 = _product.Name;
-            var test2 = _product.ASIN;
-            return RedirectToAction("Index");
-        }
-
-        /*
-        private bool CheckProductLink(string _link)
+        public static bool CheckProductLink(string _link)
         {
             if (_link == null)
             {
@@ -94,7 +26,7 @@ namespace ProductScraper.Controllers
 
         //static readonly string testurl = "https://www.amazon.com.tr/dp/B083Y1D8WB/";
 
-        private ProductLink getProductFromUrl(string url)
+        public static ProductLink getProductFromUrl(string url)
         {
             ProductLink product = new ProductLink();
 
@@ -135,7 +67,7 @@ namespace ProductScraper.Controllers
             return product;
         }
 
-        public static string getAsinFromUrl(string strSource, string strStart)
+        private static string getAsinFromUrl(string strSource, string strStart)
         {
             if (strSource.Contains(strStart))
             {
