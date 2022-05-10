@@ -33,7 +33,16 @@ namespace ProductScraper.Controllers
             string proPriceNode = doc.DocumentNode.SelectSingleNode("//span[@class='a-price-whole']").InnerText;
             if (proPriceNode != null)
             {
-                product.Price = Regex.Match(proPriceNode, @"\d+").Value;
+                if (Int32.TryParse(Regex.Match(proPriceNode, @"\d+").Value, out int j))
+                {
+                    product.Price = j;
+                }
+                else
+                {
+                    Console.WriteLine("String could not be parsed.");
+                    product.Price = 0;
+                }
+                product.Price = Int32.Parse(Regex.Match(proPriceNode, @"\d+").Value);
             }
 
             string proPictureNode = doc.DocumentNode.SelectSingleNode("//img[@id='landingImage']").Attributes["src"].Value;

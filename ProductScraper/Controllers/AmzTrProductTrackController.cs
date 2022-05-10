@@ -29,7 +29,7 @@ namespace ProductScraper.Controllers
         //POST
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Create(ProductLink _link)
+        public IActionResult Create(Product _link)
         {
 
             if (!ScrapeFromLink.CheckProductLink(_link.URL))
@@ -38,7 +38,7 @@ namespace ProductScraper.Controllers
                 return View();
             }
 
-            ProductLink newProduct;
+            Product newProduct;
             try
             {
                 newProduct = ScrapeFromLink.getProductFromUrl(_link.URL);
@@ -65,11 +65,10 @@ namespace ProductScraper.Controllers
         //POST
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult AddProducts(ProductLink _product)
+        public IActionResult AddProducts(Product _product)
         {
-            // Ürünleri ekle tuşu sorunsuz çalışıyor! inputlar hidden ama ikinci bir kontrol gerek burada
-            var test1 = _product.Name;
-            var test2 = _product.ASIN;
+            _db.Products.Add(_product);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 

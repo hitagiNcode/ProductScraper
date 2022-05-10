@@ -12,16 +12,22 @@ namespace ProductScraper.Models
         public string ASIN { get; set; } = null!;
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; } = null!;
 
-        public string? Price { get; set; }
+        [Range(1,50000)]
+        public int? Price { get; set; }
 
+        [StringLength(1500)]
         public string? PictureUri { get; set; }
+
+        [StringLength(1500)]
+        public string URL { get; set; } = null!;
 
         public DateTime LastSyncTime { get; set; } = DateTime.Now;
     }
 
+    /*
     public class ProductLink
     {
         public string? PictureUri { get; set; }
@@ -36,5 +42,5 @@ namespace ProductScraper.Models
 
         [StringLength(1500)]
         public string URL { get; set; } = null!;
-    }
+    }*/
 }

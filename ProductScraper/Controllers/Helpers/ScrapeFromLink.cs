@@ -26,9 +26,9 @@ namespace ProductScraper.Controllers.Helpers
 
         //static readonly string testurl = "https://www.amazon.com.tr/dp/B083Y1D8WB/";
 
-        public static ProductLink getProductFromUrl(string url)
+        public static Product getProductFromUrl(string url)
         {
-            ProductLink product = new ProductLink();
+            Product product = new Product();
 
             var web = new HtmlWeb();
             var doc = web.Load(url);

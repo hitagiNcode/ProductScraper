@@ -40,20 +40,23 @@
         @foreach (var obj in Model)
         {
             <tr>
-                <td>
-                    @obj.PictureUri
+                <td style="text-align: center; vertical-align: middle;">
+                    <img src="@obj.PictureUri" alt="Ürün Resmi" style="max-width:50px;width:100%">
                 </td>
                 <td>
                     @obj.Name
                 </td>
                 <td>
-                    @obj.Price
+                    @obj.Price TL
                 </td>
                 <td>
                     @obj.ASIN
                 </td>
                 <td>
                     @obj.LastSyncTime
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <a href="@obj.URL" target="_blank"> Ürüne Git</a>
                 </td>
             </tr>
         }
