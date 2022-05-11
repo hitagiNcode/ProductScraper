@@ -1,5 +1,4 @@
-﻿using ProductScraper.Models;
-
+﻿
 namespace ProductScraper.Controllers.Helpers
 {
     public class CheckProductDbWorker : ICheckProductDbWorker
@@ -17,7 +16,7 @@ namespace ProductScraper.Controllers.Helpers
             {
                 Interlocked.Increment(ref number);
                 _logger.LogInformation($"Worker prints {number}");
-                await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5000), cancellationToken);
             }
         }
       
