@@ -57,9 +57,7 @@ namespace ProductScraper.Controllers
                 ModelState.AddModelError("URL", "Ürün bilgilerini çekemedik" +ex);
                 return View();
             }
-
             return View(newProduct);
-
         }
 
         //POST
@@ -67,9 +65,13 @@ namespace ProductScraper.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult AddProducts(Product _product)
         {
-            _db.Products.Add(_product);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.Products.Add(_product);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         /*

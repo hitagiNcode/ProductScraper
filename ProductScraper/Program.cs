@@ -1,13 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using ProductScraper.Controllers.Helpers;
+using ProductScraper.HostedServices;
 using ProductScraper.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ICheckProductDbWorker, CheckProductDbWorker>();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddHostedService<ProductTrackBackgroundService>();
 
 var app = builder.Build();
 
