@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ProductScraper.Controllers.Helpers;
 using ProductScraper.HostedServices;
 using ProductScraper.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<AppDbContext>(); ;
 builder.Services.AddHostedService<ScopedBackgroundService>();
 builder.Services.AddScoped<IScopedProcessingService, ProductTrackProcessingService>();
 
@@ -27,9 +30,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
