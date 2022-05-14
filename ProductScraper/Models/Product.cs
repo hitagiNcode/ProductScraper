@@ -27,20 +27,4 @@ namespace ProductScraper.Models
         public DateTime LastSyncTime { get; set; } = DateTime.Now;
     }
 
-    /*
-    public class ProductLink
-    {
-        public string? PictureUri { get; set; }
-
-        [StringLength(250)]
-        public string Name { get; set; }
-
-        public int Price { get; set; }
-
-        [StringLength(10)]
-        public string ASIN { get; set; }
-
-        [StringLength(1500)]
-        public string URL { get; set; } = null!;
-    }*/
 }

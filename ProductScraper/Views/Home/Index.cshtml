@@ -1,88 +1,113 @@
-﻿@{
+﻿@model IEnumerable<ProductChange>
+@{
     ViewData["Title"] = "Anasayfa";
 }
 
 <!-- Anamenü Takip Sayıları-->
 <div class="row mt-2">
-<div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6">
 
-<div class="small-box bg-info">
-<div class="inner">
- <p>Amazon Türkiye</p>
-<h3>@ViewData["AmzTrTableCount"]</h3>
-<p>Takip Edilen Ürün</p>
-</div>
-<a asp-controller="AmzTrProductTrack" asp-action="Index" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
+        <div class="small-box bg-info">
+            <div class="inner">
+                <p>Amazon Türkiye</p>
+                <h3>@ViewData["AmzTrTableCount"]</h3>
+                <p>Takip Edilen Ürün</p>
+            </div>
+            <a asp-controller="AmzTrProductTrack" asp-action="Index" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
 
-<div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6">
 
-<div class="small-box bg-danger">
-<div class="inner">
- <p>Trendyol</p>
-<h3>0</h3>
-<p>Takip Edilen Ürün</p>
-</div>
-<a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <p>Trendyol</p>
+                <h3>0</h3>
+                <p>Takip Edilen Ürün</p>
+            </div>
+            <a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
 
-<div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6">
 
-<div class="small-box bg-warning">
-<div class="inner">
- <p>Hepsiburada</p>
-<h3>0</h3>
-<p>Takip Edilen Ürün</p>
-</div>
-<a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <p>Hepsiburada</p>
+                <h3>0</h3>
+                <p>Takip Edilen Ürün</p>
+            </div>
+            <a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
 
-<div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6">
 
-<div class="small-box bg-secondary">
-<div class="inner">
- <p>N11.com</p>
-<h3>0</h3>
-<p>Takip Edilen Ürün</p>
-</div>
-<a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
+        <div class="small-box bg-secondary">
+            <div class="inner">
+                <p>N11.com</p>
+                <h3>0</h3>
+                <p>Takip Edilen Ürün</p>
+            </div>
+            <a href="#" class="small-box-footer">Listeye Git<i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
 
 </div>
 <!-- Anamenü Takip Sayıları Bitişi-->
-
-
 <!-- Fiyat Değişim Tablosu-->
 <div class="card">
-<div class="card-header border-transparent">
-<h3 class="card-title">Son Ürün Değişiklikleri</h3>
-<div class="card-tools">
-<button type="button" class="btn btn-tool" data-card-widget="collapse">
-<i class="fas fa-minus"></i>
-</button>
-<button type="button" class="btn btn-tool" data-card-widget="remove">
-<i class="fas fa-times"></i>
-</button>
-</div>
+    <div class="card-header border-transparent">
+        <h3 class="card-title">Son Ürün Değişiklikleri</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>Ürün Linki</th>
+                        <th>Ürün Değişeni</th>
+                        <th>Eski Değer</th>
+                        <th>Pazaryeri</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td><a href=@($"https://www.amazon.com.tr/dp/{obj.ASIN}/")>@obj.ASIN</a></td>
+                            <td><div  class="sparkbar" data-color="#00a65a" data-height="20">@obj.ChangedVar</div></td>
+                            <td>@obj.ChangeValue</td>
+                            <td>
+                                <span class="badge badge-info">AmazonTR</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!--  Footer Kısmına Şimdilik Gerek Yok
+    <div class="card-footer clearfix">
+    <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+    </div>-->
+
 </div>
 
-<div class="card-body p-0">
-<div class="table-responsive">
-<table class="table m-0">
-<thead>
-<tr>
-<th>Ürün ID</th>
-<th>Ürün İsmi</th>
-<th>Pazaryeri</th>
-<th>Değişiklik</th>
-</tr>
-</thead>
-<tbody>
-<tr>
+<!-- Fiyat Değişim Tablosu Bitişi-->
+<!-- Place holder tablo
+    <tr>
 <td><a href="#">OR9842</a></td>
 <td>(Test Ürün) Deri Cüzdan</td>
 <td><span class="badge badge-info">AmazonTR</span></td>
@@ -138,17 +163,4 @@
 <div class="sparkbar" data-color="#00a65a" data-height="20">Ürün Satışa Kapandı</div>
 </td>
 </tr>
-</tbody>
-</table>
-</div>
-
-</div>
-<!--  Footer Kısmına Şimdilik Gerek Yok
-<div class="card-footer clearfix">
-<a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-<a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-</div>-->
-
-</div>
-
-<!-- Fiyat Değişim Tablosu Bitişi-->
+-->

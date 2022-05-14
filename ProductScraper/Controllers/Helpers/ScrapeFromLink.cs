@@ -6,12 +6,17 @@ namespace ProductScraper.Controllers.Helpers
 {
     public class ScrapeFromLink
     {
-        public static async Task<Product> TrackProductFromUrlAsync(string url)
+        public static async Task<Product> TrackProductFromUrlAsync(string url, CancellationToken stoppingToken)
         {
             Product product = new Product();
 
+            if (!CheckProductLink(url))
+            {
+                return await Task.FromResult(product);
+            }
+
             var web = new HtmlWeb();
-            HtmlDocument doc = await web.LoadFromWebAsync(url);
+            HtmlDocument doc = await web.LoadFromWebAsync(url, stoppingToken);
 
             HtmlNode proNameNode = doc.DocumentNode.SelectSingleNode("//span[@id='productTitle']");
             if (proNameNode != null)
@@ -38,11 +43,6 @@ namespace ProductScraper.Controllers.Helpers
             {
                 product.PictureUri = proPictureNode.Attributes["src"].Value;
             }
-
-            product.ASIN = getAsinFromUrl(url, "/dp/");
-
-            string shortUrl = "https://www.amazon.com.tr/dp/" + product.ASIN + "/";
-            product.URL = shortUrl;
 
             return await Task.FromResult(product);
         }

@@ -9,5 +9,8 @@ namespace ProductScraper.Models
         }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<ProductChange> ProductChanges { get; set; }
+
     }
 }

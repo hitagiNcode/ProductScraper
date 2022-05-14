@@ -17,17 +17,21 @@ namespace ProductScraper.Controllers
 
         public IActionResult Index()
         {
+            IEnumerable<ProductChange> productChangeList;
+
             try
             {
                 int proCount = _db.Products.Count();
+                productChangeList = _db.ProductChanges;
                 ViewData["AmzTrTableCount"] = proCount;
             }
             catch
             {
                 ViewData["AmzTrTableCount"] = "??";
+                productChangeList = new List<ProductChange>();
             }
 
-            return View();
+            return View(productChangeList);
         }
 
         public IActionResult Privacy()
