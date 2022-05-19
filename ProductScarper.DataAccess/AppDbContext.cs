@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProductScraper.Domain;
 
-namespace ProductScraper.Models
+namespace ProductScraper.DataAccess
 {
     public class AppDbContext: IdentityDbContext
     {
@@ -12,6 +13,8 @@ namespace ProductScraper.Models
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductChange> ProductChanges { get; set; }
+
+        public DbSet<TrackingUser> TrackingUsers { get; set; }
 
     }
 }

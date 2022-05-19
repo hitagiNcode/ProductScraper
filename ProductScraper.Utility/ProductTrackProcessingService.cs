@@ -1,7 +1,8 @@
-﻿using ProductScraper.Controllers.Helpers;
-using ProductScraper.Models;
+﻿using Microsoft.Extensions.Logging;
+using ProductScraper.DataAccess;
+using ProductScraper.Domain;
 
-namespace ProductScraper.HostedServices
+namespace ProductScraper.Utility
 {
     public class ProductTrackProcessingService : IScopedProcessingService
     {

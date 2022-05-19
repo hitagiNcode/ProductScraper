@@ -1,4 +1,4 @@
-﻿namespace ProductScraper.HostedServices
+﻿namespace ProductScraper.Utility
 {
     public interface IScopedProcessingService
     {

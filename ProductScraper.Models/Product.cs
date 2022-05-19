@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductScraper.Models
+namespace ProductScraper.Domain
 {
     public class Product
     {
@@ -25,6 +25,17 @@ namespace ProductScraper.Models
         public string URL { get; set; } = null!;
 
         public DateTime LastSyncTime { get; set; } = DateTime.Now;
+
+        public ICollection<TrackingUser>? FollowingUsers { get; set; }
+
+    }
+
+    public class TrackingUser
+    {
+        [Key]
+        public int Id { get; set; }
+        public string UserId { get; set; } = null!;
+        public Product Product { get; set; } = null!;
     }
 
 }

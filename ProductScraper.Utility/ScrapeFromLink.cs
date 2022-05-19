@@ -1,8 +1,8 @@
 ﻿using HtmlAgilityPack;
-using ProductScraper.Models;
+using ProductScraper.Domain;
 using System.Text.RegularExpressions;
 
-namespace ProductScraper.Controllers.Helpers
+namespace ProductScraper.Utility
 {
     public class ScrapeFromLink
     {

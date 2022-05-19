@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProductScraper.Models
+namespace ProductScraper.Domain
 {
     public class ProductChange
     {

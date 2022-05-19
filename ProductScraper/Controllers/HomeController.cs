@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductScraper.Models;
+using ProductScraper.DataAccess;
+using ProductScraper.Domain;
 using System.Diagnostics;
 
 namespace ProductScraper.Controllers

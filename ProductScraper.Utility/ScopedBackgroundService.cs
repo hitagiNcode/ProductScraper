@@ -1,4 +1,9 @@
-﻿namespace ProductScraper.HostedServices
+﻿
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+namespace ProductScraper.Utility
 {
     public class ScopedBackgroundService : BackgroundService
     {

@@ -1,7 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using ProductScraper.HostedServices;
-using ProductScraper.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ProductScarper.DataAccess.Repository;
+using ProductScarper.DataAccess.Repository.IRepository;
+using ProductScraper.DataAccess;
+using ProductScraper.Utility;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>(); ;
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHostedService<ScopedBackgroundService>();
 builder.Services.AddScoped<IScopedProcessingService, ProductTrackProcessingService>();
 
