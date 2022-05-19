@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.Domain;
 using ProductScraper.Utility;
+using System.Linq;
 using System.Security.Claims;
 
 namespace ProductScraper.Controllers
@@ -16,21 +18,23 @@ namespace ProductScraper.Controllers
         }
 
         //GET
+        [Authorize]
         public IActionResult Index()
         {
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            IEnumerable<Product> objProductList = _unitOfWork.Product.GetAll();
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IEnumerable<Product> objProductList = _unitOfWork.Product.GetAll(u => u.FollowingUsers.Any(m => m.UserId == currentUserId));
             return View(objProductList);
-
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         //POST
+        [Authorize]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(Product _link)
@@ -66,20 +70,33 @@ namespace ProductScraper.Controllers
         }
 
         //POST
+        [Authorize]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult AddProducts(Product _product)
         {
-            if (ModelState.IsValid)
+            Product checkProduct = _unitOfWork.Product.GetFirstOrDefault(u => u.ASIN == _product.ASIN);
+            if (checkProduct == null)
             {
+                if (ModelState.IsValid)
+                {
+                    TrackingUser newTrackingUser = new TrackingUser();
+                    newTrackingUser.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    newTrackingUser.Product = _product;
+                    _product.FollowingUsers = new List<TrackingUser>();
+                    _product.FollowingUsers.Add(newTrackingUser);
+                    _unitOfWork.Product.Add(_product);
+                    _unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+           }
+            else
+            {
+                //error here
                 TrackingUser newTrackingUser = new TrackingUser();
                 newTrackingUser.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                newTrackingUser.Product = _product;
-                _product.FollowingUsers = new List<TrackingUser>();
-                _product.FollowingUsers.Add(newTrackingUser);
-                _unitOfWork.Product.Add(_product);
-                _unitOfWork.Save();
-                return RedirectToAction("Index");
+                newTrackingUser.Product = checkProduct;
+                _unitOfWork.TrackingUser.Add(newTrackingUser);
             }
             return View();
         }

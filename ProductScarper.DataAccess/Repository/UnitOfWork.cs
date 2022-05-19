@@ -1,10 +1,7 @@
 ﻿using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductScraper.DataAccess.Repository;
+using ProductScraper.DataAccess.Repository.IRepository;
 
 namespace ProductScarper.DataAccess.Repository
 {
@@ -16,9 +13,11 @@ namespace ProductScarper.DataAccess.Repository
         {
             _db = db;
             Product = new ProductRepository(_db);
+            TrackingUser = new TrackingUserRepository(_db);
         }
 
         public IProductRepository Product { get; private set; }
+        public ITrackingUserRepository TrackingUser { get; private set; }
 
         public void Save()
         {
