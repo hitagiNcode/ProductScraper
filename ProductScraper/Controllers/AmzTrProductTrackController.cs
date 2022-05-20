@@ -39,34 +39,42 @@ namespace ProductScraper.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(Product _link)
         {
-
             if (!ScrapeFromLink.CheckProductLink(_link.URL))
             {
                 ModelState.AddModelError("URL", "Geçersiz link! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
                 return View();
             }
-
-            Product newProduct;
-            try
+            //Check if the product ASIN is already in database
+            string proAsin = ScrapeFromLink.getAsinFromUrl(_link.URL, "/dp/");
+            Product existingProduct = _unitOfWork.Product.GetFirstOrDefault(u => u.ASIN == proAsin);
+            if (existingProduct == null)
             {
-                newProduct = ScrapeFromLink.getProductFromUrl(_link.URL);
-                if (string.IsNullOrEmpty(newProduct.Name))
+                Product newProduct;
+                try
                 {
-                    ModelState.AddModelError("URL", "Ürünün İsim bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
+                    newProduct = ScrapeFromLink.getProductFromUrl(_link.URL);
+                    if (string.IsNullOrEmpty(newProduct.Name))
+                    {
+                        ModelState.AddModelError("URL", "Ürünün İsim bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
+                        return View();
+                    }
+                    if (string.IsNullOrEmpty(newProduct.ASIN))
+                    {
+                        ModelState.AddModelError("URL", "Ürün Asin bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
+                        return View();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("URL", "Ürün bilgilerini çekemedik" + ex);
                     return View();
                 }
-                if (string.IsNullOrEmpty(newProduct.ASIN))
-                {
-                    ModelState.AddModelError("URL", "Ürün Asin bilgisi yok, linki kontrol ediniz! Örnek: https://www.amazon.com.tr/dp/B083Y1D8WB/");
-                    return View();
-                }
+                return View(newProduct);
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("URL", "Ürün bilgilerini çekemedik" + ex);
-                return View();
+                return View(existingProduct);
             }
-            return View(newProduct);
         }
 
         //POST
@@ -76,12 +84,12 @@ namespace ProductScraper.Controllers
         public IActionResult AddProducts(Product _product)
         {
             Product checkProduct = _unitOfWork.Product.GetFirstOrDefault(u => u.ASIN == _product.ASIN);
+            TrackingUser newTrackingUser = new TrackingUser();
+            newTrackingUser.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (checkProduct == null)
             {
                 if (ModelState.IsValid)
                 {
-                    TrackingUser newTrackingUser = new TrackingUser();
-                    newTrackingUser.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     newTrackingUser.Product = _product;
                     _product.FollowingUsers = new List<TrackingUser>();
                     _product.FollowingUsers.Add(newTrackingUser);
@@ -89,16 +97,21 @@ namespace ProductScraper.Controllers
                     _unitOfWork.Save();
                     return RedirectToAction("Index");
                 }
-           }
+            }
             else
             {
-                //error here
-                TrackingUser newTrackingUser = new TrackingUser();
-                newTrackingUser.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 newTrackingUser.Product = checkProduct;
-                _unitOfWork.TrackingUser.Add(newTrackingUser);
+                if (checkProduct.FollowingUsers != null)
+                    checkProduct.FollowingUsers.Add(newTrackingUser);
+                else
+                {
+                    checkProduct.FollowingUsers = new List<TrackingUser>();
+                    checkProduct.FollowingUsers.Add(newTrackingUser);
+                }
+                _unitOfWork.Product.Update(checkProduct);
+                _unitOfWork.Save();
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
     }

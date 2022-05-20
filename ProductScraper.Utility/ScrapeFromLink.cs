@@ -108,7 +108,7 @@ namespace ProductScraper.Utility
             return product;
         }
 
-        private static string getAsinFromUrl(string strSource, string strStart)
+        public static string getAsinFromUrl(string strSource, string strStart)
         {
             if (strSource.Contains(strStart))
             {

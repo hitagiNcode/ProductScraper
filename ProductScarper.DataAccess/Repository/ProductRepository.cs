@@ -1,4 +1,5 @@
-﻿using ProductScarper.DataAccess.Repository.IRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.DataAccess;
 using ProductScraper.Domain;
 using System;
