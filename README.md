@@ -1,7 +1,7 @@
 <h1 align="center"> Asp.Net Core (.NET 6) Product Tracking App</h1>
 <h3 align="center">Using Azure & HtmlAgilityPack & EF Core</h3>
 
-- 💻 **Check Out Live Demo** [PuniPuniTDS](https://productscraperdemo.azurewebsites.net/) 
+- 💻 **Check Out Live Demo** [PuniPuniTDS](https://punipunitds.herokuapp.com/) 
 
 - 🔭 Check out my **Web Portfolio** [barisgunenc.dev](https://barisgunenc.dev/) 
 
