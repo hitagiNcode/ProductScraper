@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.Domain;
 using ProductScraper.Utility;
-using System.Linq;
 using System.Security.Claims;
 
 namespace ProductScraper.Controllers

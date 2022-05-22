@@ -84,7 +84,7 @@
                     @foreach (var obj in Model)
                     {
                         <tr>
-                            <td><a href=@($"https://www.amazon.com.tr/dp/{obj.ASIN}/")>@obj.ASIN</a></td>
+                            <td><a target="_blank" href=@($"https://www.amazon.com.tr/dp/{obj.ASIN}/")>@obj.ASIN</a></td>
                             <td><div  class="sparkbar" data-color="#00a65a" data-height="20">@obj.ChangedVar</div></td>
                             <td>@obj.ChangeValue</td>
                             <td>
