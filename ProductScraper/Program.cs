@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using ProductScarper.DataAccess.Repository;
 using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.DataAccess;
 using ProductScraper.Utility;
+using Hangfire;
+using Hangfire.PostgreSql;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,18 +16,22 @@ builder.Services.AddControllersWithViews();
 /*builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));*/
-/*builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ));*/
+string? PostgreConnection = Environment.GetEnvironmentVariable("POSTGRESQL");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
-    builder.Configuration.GetConnectionString("DefaultConnection")
+    connectionString: PostgreConnection ?? "User ID=postgres;Password=password;Server=localhost;Port=5432;Database=dbname;Integrated Security=true;Pooling=true;"
     ));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>(); ;
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddHostedService<ScopedBackgroundService>();
-builder.Services.AddScoped<IScopedProcessingService, ProductTrackProcessingService>();
+builder.Services.AddScoped<IProductTrackScopedProcessingService, ProductTrackProcessingService>();
+builder.Services.AddHangfire(x =>
+    x.UsePostgreSqlStorage(
+    connectionString: PostgreConnection ?? "User ID=postgres;Password=password;Server=localhost;Port=5432;Database=dbname;Integrated Security=true;Pooling=true;"
+        ));
+builder.Services.AddHangfireServer();
 
 var app = builder.Build();
 
@@ -40,7 +47,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication(); ;
+app.UseAuthentication();
+
+app.UseHangfireDashboard(); //Will be available under http://localhost:5000/hangfire"
 
 app.UseAuthorization();
 app.MapRazorPages();

@@ -19,7 +19,6 @@ namespace ProductScraper.Controllers
         public IActionResult Index()
         {
             IEnumerable<ProductChange> productChangeList;
-
             try
             {
                 int proCount = _db.Products.Count();

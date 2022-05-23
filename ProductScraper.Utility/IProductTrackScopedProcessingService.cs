@@ -1,6 +1,6 @@
 ﻿namespace ProductScraper.Utility
 {
-    public interface IScopedProcessingService
+    public interface IProductTrackScopedProcessingService
     {
         Task DoWorkAsync(CancellationToken stoppingToken);
     }
