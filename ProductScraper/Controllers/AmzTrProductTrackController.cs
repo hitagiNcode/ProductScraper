@@ -7,6 +7,7 @@ using System.Security.Claims;
 
 namespace ProductScraper.Controllers
 {
+    [Authorize]
     public class AmzTrProductTrackController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,7 +18,6 @@ namespace ProductScraper.Controllers
         }
 
         //GET
-        [Authorize]
         public IActionResult Index()
         {
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -26,14 +26,12 @@ namespace ProductScraper.Controllers
             return View(objProductList);
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         //POST
-        [Authorize]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(Product _link)
@@ -77,7 +75,6 @@ namespace ProductScraper.Controllers
         }
 
         //POST
-        [Authorize]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult AddProducts(Product _product)

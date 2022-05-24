@@ -7,7 +7,12 @@ namespace ProductScraper.Utility
 {
     public class EmailSender : IEmailSender
     {
-        public string SendGridSecret = Environment.GetEnvironmentVariable("SENDGRIDSECRET") ?? "";
+        public string SendGridSecret { get; set; }
+
+        public EmailSender(IConfiguration _config)
+        {
+            SendGridSecret = _config.GetValue<string>("SendGrid:SecretKey");
+        }
 
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

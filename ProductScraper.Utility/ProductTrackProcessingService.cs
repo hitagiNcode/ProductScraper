@@ -13,7 +13,6 @@ namespace ProductScraper.Utility
         private readonly AppDbContext _db;
         private readonly IEmailSender _emailSender;
 
-
         public ProductTrackProcessingService(AppDbContext db, ILogger<ProductTrackProcessingService> logger, IEmailSender emailSender)
         {
             _db = db;

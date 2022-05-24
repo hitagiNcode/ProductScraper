@@ -1,3 +1,5 @@
+using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -5,8 +7,6 @@ using ProductScarper.DataAccess.Repository;
 using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.DataAccess;
 using ProductScraper.Utility;
-using Hangfire;
-using Hangfire.PostgreSql;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +16,8 @@ builder.Services.AddControllersWithViews();
 /*builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));*/
-string? PostgreConnection = Environment.GetEnvironmentVariable("POSTGRESQL");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
-    connectionString: PostgreConnection ?? "User ID=postgres;Password=password;Server=localhost;Port=5432;Database=dbname;Integrated Security=true;Pooling=true;"
+        builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddDefaultIdentity<IdentityUser>()
@@ -29,7 +28,7 @@ builder.Services.AddHostedService<ScopedBackgroundService>();
 builder.Services.AddScoped<IProductTrackScopedProcessingService, ProductTrackProcessingService>();
 builder.Services.AddHangfire(x =>
     x.UsePostgreSqlStorage(
-    connectionString: PostgreConnection ?? "User ID=postgres;Password=password;Server=localhost;Port=5432;Database=dbname;Integrated Security=true;Pooling=true;"
+        builder.Configuration.GetConnectionString("DefaultConnection")
         ));
 builder.Services.AddHangfireServer();
 
