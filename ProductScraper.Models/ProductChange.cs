@@ -18,5 +18,9 @@ namespace ProductScraper.Domain
         [Required]
         [StringLength(1450)]
         public string ChangeValue { get; set; } = null!;
+
+        [Required]
+        [StringLength(1450)]
+        public string? NewValue { get; set; }
     }
 }

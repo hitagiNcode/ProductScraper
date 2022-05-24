@@ -76,6 +76,7 @@
                         <th>Ürün Linki</th>
                         <th>Ürün Değişeni</th>
                         <th>Eski Değer</th>
+                        <th>Yeni Değer</th>
                         <th>Pazaryeri</th>
                     </tr>
                 </thead>
@@ -85,7 +86,8 @@
                         <tr>
                             <td><a target="_blank" href=@($"https://www.amazon.com.tr/dp/{obj.ASIN}/")>@obj.ASIN</a></td>
                             <td><div  class="sparkbar" data-color="#00a65a" data-height="20">@obj.ChangedVar</div></td>
-                            <td>@obj.ChangeValue</td>
+                            <td>@obj.ChangeValue TL</td>
+                            <td>@obj.NewValue TL</td>
                             <td>
                                 <span class="badge badge-info">AmazonTR</span>
                             </td>
