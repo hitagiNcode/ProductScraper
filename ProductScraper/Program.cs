@@ -1,5 +1,5 @@
-using Hangfire;
-using Hangfire.PostgreSql;
+//using Hangfire;
+//using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,6 @@ using ProductScarper.DataAccess.Repository;
 using ProductScarper.DataAccess.Repository.IRepository;
 using ProductScraper.DataAccess;
 using ProductScraper.Utility;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,12 +25,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddHostedService<ScopedBackgroundService>();
 builder.Services.AddScoped<IProductTrackScopedProcessingService, ProductTrackProcessingService>();
-builder.Services.AddHangfire(x =>
+/*builder.Services.AddHangfire(x =>
     x.UsePostgreSqlStorage(
         builder.Configuration.GetConnectionString("DefaultConnection")
         ));
-builder.Services.AddHangfireServer(options => options.WorkerCount = 5);
-
+builder.Services.AddHangfireServer(options => options.WorkerCount = 1);
+*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,8 +47,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 
-app.UseHangfireDashboard(); //Will be available under http://localhost:5000/hangfire"
-
+//app.UseHangfireDashboard(); //Will be available under http://localhost:5000/hangfire"
 app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
