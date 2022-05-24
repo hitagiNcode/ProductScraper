@@ -30,7 +30,7 @@ builder.Services.AddHangfire(x =>
     x.UsePostgreSqlStorage(
         builder.Configuration.GetConnectionString("DefaultConnection")
         ));
-builder.Services.AddHangfireServer();
+builder.Services.AddHangfireServer(options => options.WorkerCount = 5);
 
 var app = builder.Build();
 
